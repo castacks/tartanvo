@@ -6,6 +6,11 @@ import numpy as np
 import numbers
 import cv2
 import matplotlib.pyplot as plt
+import os
+if ( not ( "DISPLAY" in os.environ ) ):
+    plt.switch_backend('agg')
+    print("Environment variable DISPLAY is not present in the system.")
+    print("Switch the backend of matplotlib to agg.")
 
 import time
 # ===== general functions =====

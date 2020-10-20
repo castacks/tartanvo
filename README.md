@@ -20,11 +20,11 @@ Our model is trained purely on simulation data, but it generalizes well to real-
 * scipy
 * pytorch >= 1.3
 * opencv-python
-* cupy == 6.7.0
+* cupy
 
 You can install the above dependencies manually, or use the following command:
 ```
-$ pip install numpy matplotlib scipy torch==1.4.0 opencv-python cupy==6.7.0
+$ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==6.7.0
 ```
 
 ## Testing with a pretrained model
@@ -43,6 +43,7 @@ $ mkdir data
 $ wget https://cmu.box.com/shared/static/nw3bi7x5vng2xy296ndxt19uozpk64jq.zip -O data/KITTI_10.zip
 $ unzip -q data/KITTI_10.zip -d data/KITTI_10/
 ```
+You can also download other trajectories from the [KITTI website](http://www.cvlibs.net/datasets/kitti/eval_odometry.php). First, each trajectory may have different intrinsics, make sure you change the values in `Datasets/utils.py`. Second, we are using the same format of pose file with the TartanAir dataset. You can use the `Datasets/transformation/kitti2tartan()` to convert the KITTI pose files. 
 
 * Download EuRoC-V102 testing trajectory
 ```
@@ -50,6 +51,18 @@ $ mkdir data
 $ wget https://cmu.box.com/shared/static/1ctocidptdv1xev6pjxdj0b782mrstps.zip -O data/EuRoC_V102.zip
 $ unzip -q data/EuRoC_V102.zip -d data/EuRoC_V102/
 ```
+You can download other trajectories from the [EuRoC dataset](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets). What we did for the sample testing data EuRoC_V102 was the following:
+- Undistort the image according to their calibration results.
+- Match the images with the GT poses according to the timestamp.
+- Use the intrinsics values in the code. 
+
+Note the poses outputed by TartanVO are in the NED frame. 
+
+### Alternative download links:
+In case the above link is slow, we have those files on Azure. You can replace the link with the following ones. Instead of `wget`, using the [azcopy tool](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10) usually is much faster. 
+* Model: https://tartanair.blob.core.windows.net/tartanvo/models/tartanvo_1914.pkl
+* KITTI-10: https://tartanair.blob.core.windows.net/tartanvo/data/KITTI_10.zip
+* EuRoC-V102: https://tartanair.blob.core.windows.net/tartanvo/data/EuRoC_V102.zip
 
 <!--    * Download TartanAir-MH006 testing trajectory
    ```
@@ -79,6 +92,8 @@ $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
 <!-- - Testing on TartanAir -->
 
 Running the above commands with the `--save-flow` tag, allows you to save intermediate optical flow outputs into the `results` folder. 
+
+Adjust the batch size and the worker number by `--batch-size 2`, `--worker-num 2`. 
 
 ## Run the ROS node 
 
