@@ -9,13 +9,9 @@ Introduction video: [Youtube](https://www.youtube.com/watch?v=NQ1UEh3thbU)
 
 TODO: Add another video source
 
-Our model is trained purely on simulation data, but it generalizes well to real-world data. For example, this is the testing result on [KITTI](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) 10 trajectory:
+Our model is trained purely on simulation data, but it generalizes well to real-world data. For example, these are the testing results on [KITTI-10](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) and [EuRoC V102](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets):
 
-![KITTI10](results/kitti_10_tartanvo_1914.png)
-
-This is the testing result on [EuRoC V102](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets):
-
-![EUROC_V102](results/euroc_v102_tartanvo_1914.png)
+![KITTI10](results/kitti_10_tartanvo_1914.png)  ![EUROC_V102](results/euroc_v102_tartanvo_1914.png)
 
 ## Requirments
 * Python 2 / 3
@@ -23,26 +19,20 @@ This is the testing result on [EuRoC V102](https://projects.asl.ethz.ch/datasets
 * matplotlib
 * scipy
 * pytorch >= 1.3
-* torchvision
 * opencv-python
 * cupy == 6.7.0
-* visdom 
-* [WorkFlow](https://github.com/huyaoyu/WorkFlow): branch amigo 
 
-You can install the above dependencies manually, or follow the following steps:
+You can install the above dependencies manually, or use the following command:
 ```
-$ pip install numpy matplotlib scipy torch==1.4.0 torchvision opencv-python cupy==6.7.0 visdom
-
+$ pip install numpy matplotlib scipy torch==1.4.0 opencv-python cupy==6.7.0
 ```
 
-## Test with pretrained model
+## Testing with a pretrained model
 ### Download the pretrained model
 
 ```
 $ mkdir models
-
 $ wget https://cmu.box.com/shared/static/t1a5u4x6dxohl89104dyrsiz42mvq2sz.pkl -O models/tartanvo_1914.pkl
-
 ```
 
 ### Download the testing data
@@ -50,18 +40,14 @@ $ wget https://cmu.box.com/shared/static/t1a5u4x6dxohl89104dyrsiz42mvq2sz.pkl -O
 * Download KITTI-10 testing trajectory
 ```
 $ mkdir data
-
 $ wget https://cmu.box.com/shared/static/nw3bi7x5vng2xy296ndxt19uozpk64jq.zip -O data/KITTI_10.zip
-
 $ unzip -q data/KITTI_10.zip -d data/KITTI_10/
 ```
 
 * Download EuRoC-V102 testing trajectory
 ```
 $ mkdir data
-
 $ wget https://cmu.box.com/shared/static/1ctocidptdv1xev6pjxdj0b782mrstps.zip -O data/EuRoC_V102.zip
-
 $ unzip -q data/EuRoC_V102.zip -d data/EuRoC_V102/
 ```
 
@@ -72,25 +58,31 @@ $ unzip -q data/EuRoC_V102.zip -d data/EuRoC_V102/
  -->
 
 ### Run the testing script
-The `vo_trajectory_from_folder.py` script shows an example of running TartanVO on a sequence of images reading out from a folder. Because TartanVO outputs up-to-scale translation, it also reads a pose-file for adjusting the translation scale. If the pose-file is not provided, the default scale of 1.0 will be used. The results will be stored in the `results` folder. 
+The `vo_trajectory_from_folder.py` script shows an example of running TartanVO on a sequence of images out of a folder. Because TartanVO outputs up-to-scale translation, the script also reads a pose file for adjusting the translation scale. If the pose file is not provided, the default scale of 1.0 will be used. The results are stored in the `results` folder. 
 
 - Testing on KITTI
 ```
-$ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl --kitti --test-dir data/KITTI_10/image_left --pose-file data/KITTI_10/pose_left.txt 
+$ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
+                                       --kitti \
+                                       --test-dir data/KITTI_10/image_left \
+                                       --pose-file data/KITTI_10/pose_left.txt 
 ```
 - Testing on EuRoC
 ```
 
-$ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl --euroc --test-dir data/EuRoC_V102/image_left --pose-file data/EuRoC_V102/pose_left.txt
+$ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
+                                       --euroc \
+                                       --test-dir data/EuRoC_V102/image_left \
+                                       --pose-file data/EuRoC_V102/pose_left.txt
 ```
 
 <!-- - Testing on TartanAir -->
 
-Running the above commands with `--save-flow` tag, allows you to save intermediate optical flow outputs into the `results` folder. 
+Running the above commands with the `--save-flow` tag, allows you to save intermediate optical flow outputs into the `results` folder. 
 
 ## Run the ROS node 
 
-We provide a python ROS node in `tartanvo_node.py` for easy integration of the TartanVO to robotic systems. 
+We provide a python ROS node in `tartanvo_node.py` for the easy integration of the TartanVO into robotic systems. 
 
 ### How does TartanVONode work?
 1. Subscribed topics
