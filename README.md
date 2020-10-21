@@ -27,7 +27,21 @@ You can install the above dependencies manually, or use the following command:
 $ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==6.7.0
 ```
 
-Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. We provide a [dockerfile](docker/tartanvo_ros.dockerfile), which allows you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. 
+### Running the code in the docker
+Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. We provide a [dockerfile](docker/tartanvo_ros.dockerfile), which allows you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are a few steps to build the docker image. 
+
+* Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
+* Build the docker image. 
+```
+$ cd docker 
+$ docker build -t tartanvo -f tartanvo_ros.dockerfile .
+```
+* Run the docker image and mount the tartanvo into the container.
+```
+nvidia-docker run -it --rm -v /PATH_TO_THIS_TARTANVO_REPO/tartanvo:/tartanvo tartanvo:latest
+```
+* Now it's all set. Continuing the following steps inside the container.
+
 
 ## Testing with a pretrained model
 ### Download the pretrained model
