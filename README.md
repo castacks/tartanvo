@@ -27,6 +27,8 @@ You can install the above dependencies manually, or use the following command:
 $ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==6.7.0
 ```
 
+Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. We provide a [dockerfile](docker/tartanvo_ros.dockerfile), which allows you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. 
+
 ## Testing with a pretrained model
 ### Download the pretrained model
 
@@ -51,15 +53,15 @@ $ mkdir data
 $ wget https://cmu.box.com/shared/static/1ctocidptdv1xev6pjxdj0b782mrstps.zip -O data/EuRoC_V102.zip
 $ unzip -q data/EuRoC_V102.zip -d data/EuRoC_V102/
 ```
-You can download other trajectories from the [EuRoC dataset](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets). What we did for the sample testing data EuRoC_V102 was the following:
+You can download other trajectories from the [EuRoC dataset](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets). What we did for the sample data EuRoC_V102 was the following:
 - Undistort the image according to their calibration results.
 - Match the images with the GT poses according to the timestamp.
-- Use the intrinsics values in the code. 
+- Change the intrinsics parameters in the code. 
 
 Note the poses outputed by TartanVO are in the NED frame. 
 
 ### Alternative download links:
-In case the above link is slow, we have those files on Azure. You can replace the link with the following ones. Instead of `wget`, using the [azcopy tool](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10) usually is much faster. 
+In case using the above links is slow, please try the following links from Azure. You can replace the links with the following ones. Instead of `wget`, using the [azcopy tool](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10) usually is much faster. 
 * Model: https://tartanair.blob.core.windows.net/tartanvo/models/tartanvo_1914.pkl
 * KITTI-10: https://tartanair.blob.core.windows.net/tartanvo/data/KITTI_10.zip
 * EuRoC-V102: https://tartanair.blob.core.windows.net/tartanvo/data/EuRoC_V102.zip
