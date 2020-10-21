@@ -38,8 +38,8 @@ We provide a [dockerfile](docker/tartanvo_ros.dockerfile), which allows you to r
 $ cd docker 
 $ docker build -t tartanvo -f tartanvo_ros.dockerfile .
 ```
-  - Instead of building the docker image on your machine, you can also download our docker image from the dockhub
-    `docker pull amigoshan/tartanvo`, which is built on a ubuntu machine with nvidia driver 440.100.
+    (Instead of building the docker image on your machine, you can also download our docker image from the dockhub
+    `docker pull amigoshan/tartanvo`, which is built on a ubuntu machine with nvidia driver 440.100.)
 
 * Run the docker image and mount the tartanvo into the container.
 ```
