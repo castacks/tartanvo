@@ -160,7 +160,7 @@ $ python tartanvo_node.py
 $ python publish_image_from_folder.py
 ```
 
-If you open the `rviz`, you can see the visualization as follows
+If you open the `rviz` and use this [config file](config.rviz), you can see the visualization as follows
 
 ![RVIZ](results/rviz.png)
 
