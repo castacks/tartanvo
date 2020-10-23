@@ -13,7 +13,28 @@ Our model is trained purely on simulation data, but it generalizes well to real-
 
 ![KITTI10](results/kitti_10_tartanvo_1914.png)  ![EUROC_V102](results/euroc_v102_tartanvo_1914.png)
 
-## Requirments
+
+## Set up the environment in the docker
+We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/amigoshan/tartanvo) and a [dockerfile](docker/tartanvo_ros.dockerfile), which allow you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are the steps to build the docker image. 
+
+1. Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
+2. Run the docker image and mount the repository into the container, the following commands will automatically download the docker image. 
+```
+$ git clone https://github.com/castacks/tartanvo.git
+$ cd tartanvo
+$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
+$ cd tartanvo
+```
+3. Now it's all set. Continuing the following steps inside the container.
+
+The above docker image is built on a ubuntu machine with nvidia driver 440.100. Alternatively, you can also build the docker image from the dockerfile we provided:
+```
+$ cd docker 
+$ docker build -t tartanvo -f tartanvo_ros.dockerfile .
+```
+
+### Run without docker
+This repo has the following dependencies:
 * Python 2 / 3
 * numpy 
 * matplotlib
@@ -27,25 +48,7 @@ You can install the above dependencies manually, or use the following command:
 $ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==6.7.0
 ```
 
-Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. If you have trouble installing these dependencies, please try the dockerfile we provide below. 
-
-### Setting up the environment in the docker
-We provide a [dockerfile](docker/tartanvo_ros.dockerfile), which allows you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are the steps to build the docker image. 
-
-1. Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
-2. Build the docker image. 
-```
-$ cd docker 
-$ docker build -t tartanvo -f tartanvo_ros.dockerfile .
-```
-  Instead of building the docker image on your machine, you can also download our docker image from the dockhub
-    `docker pull amigoshan/tartanvo`, which is built on a ubuntu machine with nvidia driver 440.100.
-
-3. Run the docker image and mount the tartanvo into the container.
-```
-nvidia-docker run -it --rm -v /PATH_TO_THIS_TARTANVO_REPO/tartanvo:/tartanvo tartanvo:latest
-```
-4. Now it's all set. Continuing the following steps inside the container.
+Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. 
 
 
 ## Testing with a pretrained model
@@ -98,6 +101,7 @@ The `vo_trajectory_from_folder.py` script shows an example of running TartanVO o
 ```
 $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
                                        --kitti \
+                                       --batch-size 1 --worker-num 1 \
                                        --test-dir data/KITTI_10/image_left \
                                        --pose-file data/KITTI_10/pose_left.txt 
 ```
@@ -106,6 +110,7 @@ $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
 
 $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
                                        --euroc \
+                                       --batch-size 1 --worker-num 1 \
                                        --test-dir data/EuRoC_V102/image_left \
                                        --pose-file data/EuRoC_V102/pose_left.txt
 ```
@@ -114,7 +119,7 @@ $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
 
 Running the above commands with the `--save-flow` tag, allows you to save intermediate optical flow outputs into the `results` folder. 
 
-Adjust the batch size and the worker number by `--batch-size 2`, `--worker-num 2`. 
+Adjust the batch size and the worker number by `--batch-size 10`, `--worker-num 5`. 
 
 ## Run the ROS node 
 

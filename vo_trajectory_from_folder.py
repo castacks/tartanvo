@@ -14,10 +14,10 @@ from os.path import isdir
 def get_args():
     parser = argparse.ArgumentParser(description='HRL')
 
-    parser.add_argument('--batch-size', type=int, default=10,
-                        help='batch size (default: 10)')
-    parser.add_argument('--worker-num', type=int, default=5,
-                        help='data loader worker number (default: 5)')
+    parser.add_argument('--batch-size', type=int, default=1,
+                        help='batch size (default: 1)')
+    parser.add_argument('--worker-num', type=int, default=1,
+                        help='data loader worker number (default: 1)')
     parser.add_argument('--image-width', type=int, default=640,
                         help='image width (default: 640)')
     parser.add_argument('--image-height', type=int, default=448,
@@ -53,7 +53,9 @@ if __name__ == '__main__':
         datastr = 'kitti'
     elif args.euroc:
         datastr = 'euroc'
-    focalx, focaly, centerx, centery = dataset_intrinsics(datastr) # TODO
+    else:
+        datastr = 'tartanair'
+    focalx, focaly, centerx, centery = dataset_intrinsics(datastr) 
     if args.kitti_intrinsics_file.endswith('.txt') and datastr=='kitti':
         focalx, focaly, centerx, centery = load_kiiti_intrinsics(args.kitti_intrinsics_file)
 
@@ -103,3 +105,5 @@ if __name__ == '__main__':
         # save results and visualization
         plot_traj(results['gt_aligned'], results['est_aligned'], vis=False, savefigname='results/'+testname+'.png', title='ATE %.4f' %(results['ate_score']))
         np.savetxt('results/'+testname+'.txt',results['est_aligned'])
+    else:
+        np.savetxt('results/'+testname+'.txt',poselist)
