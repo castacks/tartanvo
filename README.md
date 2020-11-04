@@ -8,11 +8,9 @@ Please checkout our [Paper](https://arxiv.org/abs/2011.00359).
 
 Introduction video: 
 
-![Video](results/video_shot.png)
+<img src="results/video_shot.png" width="60">
 
-[Youtube](https://www.youtube.com/watch?v=NQ1UEh3thbU)
-
-[Bilibili](https://www.bilibili.com/video/BV1Pv411r7Ei)
+[Youtube](https://www.youtube.com/watch?v=NQ1UEh3thbU)  [Bilibili](https://www.bilibili.com/video/BV1Pv411r7Ei)
 
 Our model is trained purely on simulation data, but it generalizes well to real-world data. For example, these are the testing results on [KITTI-10](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) and [EuRoC V102](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets):
 
