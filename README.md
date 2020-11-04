@@ -8,7 +8,7 @@ Please checkout our [Paper](https://arxiv.org/abs/2011.00359).
 
 Introduction video: 
 
-<img src="results/video_shot.png" width="60">
+<a href="https://www.youtube.com/watch?v=NQ1UEh3thbU"><img src="results/video_shot.png" width="600"> </a>
 
 [Youtube](https://www.youtube.com/watch?v=NQ1UEh3thbU)  [Bilibili](https://www.bilibili.com/video/BV1Pv411r7Ei)
 
