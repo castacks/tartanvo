@@ -2,19 +2,24 @@
 
 TartanVO is a learning-based visual odometry trained on [TartanAir](https://theairlab.org/tartanair-dataset) dataset. It generalizes to multiple datasets and real-world scenarios, and outperforms geometry-based methods in challenging scenes. 
 
-TODO: add a paper link and author info
+Please checkout our [Paper](https://arxiv.org/abs/2011.00359). 
 
 ## Example
-Introduction video: [Youtube](https://www.youtube.com/watch?v=NQ1UEh3thbU)
 
-TODO: Add another video source
+Introduction video: 
+
+![Video](results/video_shot.png)
+
+[Youtube](https://www.youtube.com/watch?v=NQ1UEh3thbU)
+
+[Bilibili](https://www.bilibili.com/video/BV1Pv411r7Ei)
 
 Our model is trained purely on simulation data, but it generalizes well to real-world data. For example, these are the testing results on [KITTI-10](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) and [EuRoC V102](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets):
 
 ![KITTI10](results/kitti_10_tartanvo_1914.png)  ![EUROC_V102](results/euroc_v102_tartanvo_1914.png)
 
 
-## Set up the environment in the docker
+## Setting up the environment in the docker
 We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/amigoshan/tartanvo) and a [dockerfile](docker/tartanvo_ros.dockerfile), which allow you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are the steps to build the docker image. 
 
 1. Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
@@ -33,7 +38,7 @@ $ cd docker
 $ docker build -t tartanvo -f tartanvo_ros.dockerfile .
 ```
 
-### Run without docker
+### Running without docker
 This repo has the following dependencies:
 * Python 2 / 3
 * numpy 
