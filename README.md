@@ -89,6 +89,10 @@ In case using the above links is slow, please try the following links from Azure
 * KITTI-10: https://tartanair.blob.core.windows.net/tartanvo/data/KITTI_10.zip
 * EuRoC-V102: https://tartanair.blob.core.windows.net/tartanvo/data/EuRoC_V102.zip
 
+Try Baidu cloud or Google drive if neither the Box nor the Azure works.
+* Baidu cloud: [https://pan.baidu.com/s/1votDi0zbDXOKK4-4gtgczQ](https://pan.baidu.com/s/1votDi0zbDXOKK4-4gtgczQ) Code: vbtb
+* Google drive: [https://drive.google.com/drive/folders/1kzj2ZR4AxnDyR8elFhfnS2yX1wIxQaZO?usp=sharing](https://drive.google.com/drive/folders/1kzj2ZR4AxnDyR8elFhfnS2yX1wIxQaZO?usp=sharing)
+
 <!--    * Download TartanAir-MH006 testing trajectory
    ```
 
