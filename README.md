@@ -2,7 +2,7 @@
 
 TartanVO is a learning-based visual odometry trained on [TartanAir](https://theairlab.org/tartanair-dataset) dataset. It generalizes to multiple datasets and real-world scenarios, and outperforms geometry-based methods in challenging scenes. 
 
-Please checkout our [Paper](https://arxiv.org/abs/2011.00359). 
+Please check out our [Paper](https://arxiv.org/abs/2011.00359). 
 
 ## Example
 
