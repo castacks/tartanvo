@@ -23,7 +23,7 @@ We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/am
 ```
 $ git clone https://github.com/castacks/tartanvo.git
 $ cd tartanvo
-$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
+$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:py3
 $ cd tartanvo
 ```
 3. Now it's all set. Continuing the following steps inside the container.
@@ -104,7 +104,7 @@ The `vo_trajectory_from_folder.py` script shows an example of running TartanVO o
 
 - Testing on KITTI
 ```
-$ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
+$ python3 vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
                                        --kitti \
                                        --batch-size 1 --worker-num 1 \
                                        --test-dir data/KITTI_10/image_left \
@@ -113,7 +113,7 @@ $ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
 - Testing on EuRoC
 ```
 
-$ python vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
+$ python3 vo_trajectory_from_folder.py  --model-name tartanvo_1914.pkl \
                                        --euroc \
                                        --batch-size 1 --worker-num 1 \
                                        --test-dir data/EuRoC_V102/image_left \
