@@ -2,20 +2,20 @@
 # For License information please see the LICENSE file in the root directory.
 
 import numpy as np
-import transformation as tf
+from .transformation import pos_quats2SE_matrices, SE2pos_quat, pose2motion, motion2pose
 
 def shift0(traj): 
     '''
     Traj: a list of [t + quat]
     Return: translate and rotate the traj
     '''
-    traj_ses = tf.pos_quats2SE_matrices(np.array(traj))
+    traj_ses = pos_quats2SE_matrices(np.array(traj))
     traj_init = traj_ses[0]
     traj_init_inv = np.linalg.inv(traj_init)
     new_traj = []
     for tt in traj_ses:
         ttt=traj_init_inv.dot(tt)
-        new_traj.append(tf.SE2pos_quat(ttt))
+        new_traj.append(SE2pos_quat(ttt))
     return np.array(new_traj)
 
 def ned2cam(traj):
@@ -28,11 +28,11 @@ def ned2cam(traj):
                   [0,0,0,1]], dtype=np.float32) 
     T_inv = np.linalg.inv(T)
     new_traj = []
-    traj_ses = tf.pos_quats2SE_matrices(np.array(traj))
+    traj_ses = pos_quats2SE_matrices(np.array(traj))
 
     for tt in traj_ses:
         ttt=T.dot(tt).dot(T_inv)
-        new_traj.append(tf.SE2pos_quat(ttt))
+        new_traj.append(SE2pos_quat(ttt))
         
     return np.array(new_traj)
 
@@ -46,11 +46,11 @@ def cam2ned(traj):
                   [0,0,0,1]], dtype=np.float32) 
     T_inv = np.linalg.inv(T)
     new_traj = []
-    traj_ses = tf.pos_quats2SE_matrices(np.array(traj))
+    traj_ses = pos_quats2SE_matrices(np.array(traj))
 
     for tt in traj_ses:
         ttt=T.dot(tt).dot(T_inv)
-        new_traj.append(tf.SE2pos_quat(ttt))
+        new_traj.append(SE2pos_quat(ttt))
         
     return np.array(new_traj)
 
@@ -69,8 +69,8 @@ def trajectory_transform(gt_traj, est_traj):
     return gt_traj_trans, est_traj_trans
 
 def rescale_bk(poses_gt, poses):
-    motion_gt = tf.pose2motion(poses_gt)
-    motion    = tf.pose2motion(poses)
+    motion_gt = pose2motion(poses_gt)
+    motion    = pose2motion(poses)
     
     speed_square_gt = np.sum(motion_gt[:,0:3,3]*motion_gt[:,0:3,3],1)
     speed_gt = np.sqrt(speed_square_gt)
@@ -82,7 +82,7 @@ def rescale_bk(poses_gt, poses):
     scale = np.mean((speed[mask])/speed_gt[mask])
     scale = 1.0/scale
     motion[:,0:3,3] = motion[:,0:3,3]*scale
-    pose_update = tf.motion2pose(motion)
+    pose_update = motion2pose(motion)
     return  pose_update, scale
 
 def pose2trans(pose_data):

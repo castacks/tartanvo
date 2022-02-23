@@ -2,7 +2,7 @@
 # For License information please see the LICENSE file in the root directory.
 
 import numpy as np
-from evaluator_base import ATEEvaluator, RPEEvaluator, KittiEvaluator, transform_trajs, quats2SEs
+from .evaluator_base import ATEEvaluator, RPEEvaluator, KittiEvaluator, transform_trajs, quats2SEs
 from os.path import isdir, isfile
 
 # from trajectory_transform import timestamp_associate
