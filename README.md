@@ -1,6 +1,6 @@
 # TartanVO: A Generalizable Learning-based VO
 
-TartanVO is a learning-based visual odometry trained on [TartanAir](https://theairlab.org/tartanair-dataset) dataset. It generalizes to multiple datasets and real-world scenarios, and outperforms geometry-based methods in challenging scenes. 
+TartanVO is a learning-based visual odometry trained on [TartanAir](https://theairlab.org/tartanair-dataset) dataset. It generalizes to multiple datasets and real-world scenarios, and outperforms geometry-based methods in challenging scenes. You can check the [python3](https://github.com/castacks/tartanvo/tree/python3) branch if you are using python3.  
 
 Please check out our [Paper](https://arxiv.org/abs/2011.00359). 
 
