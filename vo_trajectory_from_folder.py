@@ -24,6 +24,10 @@ def get_args():
                         help='image height (default: 448)')
     parser.add_argument('--model-name', default='',
                         help='name of pretrained model (default: "")')
+    parser.add_argument('--nuscenesmini', action='store_true', default=False,
+                        help='nuscenes-mini test (default: False)')
+    parser.add_argument('--nuscenes', action='store_true', default=False,
+                        help='nuscenes test (default: False)')
     parser.add_argument('--euroc', action='store_true', default=False,
                         help='euroc test (default: False)')
     parser.add_argument('--kitti', action='store_true', default=False,
@@ -53,6 +57,10 @@ if __name__ == '__main__':
         datastr = 'kitti'
     elif args.euroc:
         datastr = 'euroc'
+    elif args.nuscenesmini:
+        datastr = 'nuscenes-mini'
+    elif args.nuscenes:
+        datastr = 'nuscenes'
     else:
         datastr = 'tartanair'
     focalx, focaly, centerx, centery = dataset_intrinsics(datastr) 
@@ -104,6 +112,20 @@ if __name__ == '__main__':
 
         # save results and visualization
         plot_traj(results['gt_aligned'], results['est_aligned'], vis=False, savefigname='results/'+testname+'.png', title='ATE %.4f' %(results['ate_score']))
+        # np.save('cam_front_scene_0_gt.npy', results['gt_aligned'])
+        # np.save('cam_front_scene_0_est.npy', results['est_aligned'])
+        # np.save('cam_front_left_scene_0_gt.npy', results['gt_aligned'])
+        # np.save('cam_front_left_scene_0_est.npy', results['est_aligned'])
+        np.save('cam_front_right_scene_0_gt.npy', results['gt_aligned'])
+        np.save('cam_front_right_scene_0_est.npy', results['est_aligned'])
+
+        # np.save('cam_back_scene_0_gt.npy', results['gt_aligned'])
+        # np.save('cam_back_scene_0_est.npy', results['est_aligned'])
+        # np.save('cam_back_left_scene_0_gt.npy', results['gt_aligned'])
+        # np.save('cam_back_left_scene_0_est.npy', results['est_aligned'])
+        # np.save('cam_back_right_scene_0_gt.npy', results['gt_aligned'])
+        # np.save('cam_back_right_scene_0_est.npy', results['est_aligned'])
         np.savetxt('results/'+testname+'.txt',results['est_aligned'])
     else:
+        # plot_traj(results['gt_aligned'], results['est_aligned'], vis=False, savefigname='results/'+testname+'.png', title='ATE %.4f' %(results['ate_score']))
         np.savetxt('results/'+testname+'.txt',poselist)
